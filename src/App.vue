@@ -4,11 +4,12 @@
   <header class="header">
     <h1 class="header__title">{{ msg }}</h1>
     <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
-    <button id="butAdd" class="headerButton" aria-label="Add"></button>
+    <button id="butAdd" class="headerButton" aria-label="Add" v-on:click="reverseMessage"></button>
   </header>
 
+<component-b></component-b>
 
-  <div class="loader">
+  <div class="loader" v-show="isLoading">
     <svg viewBox="0 0 32 32" width="32" height="32">
       <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
     </svg>
@@ -18,14 +19,27 @@
 </template>
 
 <script>
+
+import ComponentB from './components/ComponentB.vue'
+
 export default {
+  components: {    
+    ComponentB
+  },
   data () {
     return {
       // note: changing this line won't causes changes
       // with hot-reload because the reloaded component
       // preserves its current state and we are modifying
       // its initial state.
-      msg: 'Hello dan!'
+      msg: 'Hello dan!',
+      isLoading: true,
+    }
+  },
+  methods: {
+    reverseMessage: function () {    
+      this.msg = this.msg.split('').reverse().join('');
+      this.isLoading =!this.isLoading;
     }
   }
 }
