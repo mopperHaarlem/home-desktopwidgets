@@ -3,28 +3,37 @@
     
   <header class="header">
     <h1 class="header__title">{{ msg }}</h1>
-    <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
-    <button id="butAdd" class="headerButton" aria-label="Add" v-on:click="reverseMessage"></button>
+    <button id="butRefresh" class="headerButton" aria-label="Refresh" v-on:click="reverseMessage"></button>
+    <button id="butAdd" class="headerButton" aria-label="Add"  v-on:click="toggleDialogVisible"></button>
+    <button id="butClose" class="headerButton" aria-label="Add"  v-on:click="toggleDialogVisible"></button>
+    
   </header>
 
-<component-b></component-b>
+ <main class="main">
+    <component v-for="element in elements" :is="element.apptype" :methodclose="methodcloseapp" :appcfg="element"></component>
 
-  <div class="loader" v-show="isLoading">
-    <svg viewBox="0 0 32 32" width="32" height="32">
-      <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
-    </svg>
-  </div>
-<!--https://codelabs.developers.google.com/codelabs/your-first-pwapp/#0-->
-  </div>
+    <component-b :isvisible.sync="isDialogVisible"  :onopenapp="methodOpenapp"></component-b>
+
+    <div class="loader" v-show="isLoading">
+      <svg viewBox="0 0 32 32" width="32" height="32">
+        <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
+      </svg>
+    </div>
+  <!--https://codelabs.developers.google.com/codelabs/your-first-pwapp/#0-->
+    </div>
+ </main>
+
 </template>
 
 <script>
 
 import ComponentB from './components/ComponentB.vue'
-
+import wheatherapp from './components/wheatherapp.vue'
+wheatherapp
 export default {
   components: {    
-    ComponentB
+    ComponentB,
+    wheatherapp
   },
   data () {
     return {
@@ -34,13 +43,35 @@ export default {
       // its initial state.
       msg: 'Hello dan!',
       isLoading: true,
+      isDialogVisible : false,
+      elements: [
+      {"id": 4,"apptype":"wheatherapp","name": "Schermafbeelding 2016-02-02 om 10.37.43.png"}    
+      ]
     }
   },
   methods: {
     reverseMessage: function () {    
       this.msg = this.msg.split('').reverse().join('');
       this.isLoading =!this.isLoading;
+    },
+    methodcloseapp : function (item) { 
+      
+      this.elements.$remove(item.appcfg);
+      this.isLoading = false;
     }
+    ,
+    methodOpenapp : function (apptype) {   
+      this.isLoading = true; 
+      console.log(apptype);
+      this.elements.push({"id": 4,"apptype":"wheatherapp","name": "Schermafbeelding 2016-02-02 om 10.37.43.png"})
+      this.isLoading = false;
+    }
+    ,
+    toggleDialogVisible: function () {    
+      this.isDialogVisible =!this.isDialogVisible;
+      console.log(this.isDialogVisible);
+    }
+
   }
 }
 </script>
@@ -62,7 +93,7 @@ html, body {
   -moz-osx-font-smoothing: grayscale; }
 
 html {
-  overflow: hidden; }
+  /* overflow: hidden; */ }
 
 body {
   display: -webkit-box;
@@ -144,6 +175,62 @@ body {
     background: url(/images/ic_refresh_white_24px.svg) center center no-repeat; }
   .header #butAdd {
     background: url(/images/ic_add_white_24px.svg) center center no-repeat; }
+  .header #butClose {
+    background: url(/images/window_close.svg) center center no-repeat; }
+
+.headerapp {
+
+    background-color: #fff;
+    background-image: linear-gradient(#e0e8f0, #ffffff);
+    background-size: 100% auto;
+    border-top: 3px solid #2a588c;
+
+  height: 56px;
+  color: #FFF;
+   margin: 16px 16px 0 16px;
+    padding: 16px ;
+    position: relative;
+  font-size: 20px;
+  will-change: transform;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+          align-content: center;
+  -webkit-transition: -webkit-transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
+  transition: -webkit-transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
+  transition: transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
+  transition: transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s, -webkit-transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
+  }
+
+.headerapp__title {
+  font-weight: 400;
+  color: black;
+  font-size: 20px;
+  margin: 0;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;  }
+
 
 .header__title {
   font-weight: 400;
@@ -153,6 +240,28 @@ body {
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1; }
+
+
+.headerapp .headerButton {
+    width: 24px;
+    height: 24px;
+    margin-right: 16px;
+    text-indent: -30000px;
+    overflow: hidden;
+    opacity: 0.54;
+    -webkit-transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
+    transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
+    border: none;
+    outline: none;
+    cursor: pointer; }
+  .headerapp #butRefresh {
+    background: url(/images/ic_refresh_white_24px.svg) center center no-repeat; }
+  .headerapp #butAdd {
+    background: url(/images/ic_add_white_24px.svg) center center no-repeat; }
+  .headerapp #butClose {
+    background: url(/images/window_close.svg) center center no-repeat; }
+
+
 
 .loader {
   left: 50%;
@@ -280,7 +389,7 @@ body {
   box-sizing: border-box;
   background: #fff;
   border-radius: 2px;
-  margin: 16px;
+  margin: 0 16px 16px 16px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
 
 .weather-forecast .location {
