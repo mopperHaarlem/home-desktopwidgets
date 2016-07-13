@@ -5,7 +5,6 @@
     <h1 class="header__title">{{ msg }}</h1>
     <button id="butRefresh" class="headerButton" aria-label="Refresh" v-on:click="reverseMessage"></button>
     <button id="butAdd" class="headerButton" aria-label="Add"  v-on:click="toggleDialogVisible"></button>
-    <button id="butClose" class="headerButton" aria-label="Add"  v-on:click="toggleDialogVisible"></button>
     
   </header>
 
@@ -176,14 +175,13 @@ body {
   .header #butAdd {
     background: url(/images/ic_add_white_24px.svg) center center no-repeat; }
   .header #butClose {
-    background: url(/images/window_close.svg) center center no-repeat; }
+    background: white;
+    -webkit-mask: url(/images/window_close.svg) center / contain no-repeat}
 
 .headerapp {
 
-    background-color: #fff;
-    background-image: linear-gradient(#e0e8f0, #ffffff);
-    background-size: 100% auto;
-    border-top: 3px solid #2a588c;
+    background: #404040;
+
 
   height: 56px;
   color: #FFF;
@@ -223,7 +221,7 @@ body {
 
 .headerapp__title {
   font-weight: 400;
-  color: black;
+  color: white;
   font-size: 20px;
   margin: 0;
   -webkit-box-flex: 1;
@@ -254,13 +252,16 @@ body {
     border: none;
     outline: none;
     cursor: pointer; }
-  .headerapp #butRefresh {
+  .headerapp #butRefresho {
     background: url(/images/ic_refresh_white_24px.svg) center center no-repeat; }
   .headerapp #butAdd {
     background: url(/images/ic_add_white_24px.svg) center center no-repeat; }
+  .headerapp #butRefresh {
+    background: white;
+    background: url(/images/ic_refresh_white_24px.svg) center / contain no-repeat; }
   .headerapp #butClose {
-    background: url(/images/window_close.svg) center center no-repeat; }
-
+    background: white;
+    -webkit-mask: url(/images/window_close.svg) center / contain no-repeat}
 
 
 .loader {
