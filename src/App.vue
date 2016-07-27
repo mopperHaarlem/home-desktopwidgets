@@ -28,11 +28,15 @@
 
 import ComponentB from './components/ComponentB.vue'
 import wheatherapp from './components/wheatherapp.vue'
-wheatherapp
+import clockapp from './components/clockapp.vue'
+import googlesitesearchapp from './components/googleSiteSearchApp.vue'
+
 export default {
   components: {    
     ComponentB,
-    wheatherapp
+    wheatherapp,
+    clockapp,
+    googlesitesearchapp
   },
   data () {
     return {
@@ -44,7 +48,9 @@ export default {
       isLoading: true,
       isDialogVisible : false,
       elements: [
-      {"id": 4,"apptype":"wheatherapp","name": "Schermafbeelding 2016-02-02 om 10.37.43.png"}    
+      {"id": 1,"apptype":"clockapp","name": "Schermafbeelding 2016-02-02 om 10.37.43.png"},
+      {"id": 4,"apptype":"wheatherapp","name": "Schermafbeelding 2016-02-02 om 10.37.43.png"} ,
+      {"id": 4,"apptype":"googlesitesearchapp","name": "Schermafbeelding 2016-02-02 om 10.37.43.png"} ,
       ]
     }
   },
@@ -62,7 +68,7 @@ export default {
     methodOpenapp : function (apptype) {   
       this.isLoading = true; 
       console.log(apptype);
-      this.elements.push({"id": 4,"apptype":"wheatherapp","name": "Schermafbeelding 2016-02-02 om 10.37.43.png"})
+      this.elements.push({"id": 4,"apptype":"clockapp","name": "Schermafbeelding 2016-02-02 om 10.37.43.png"})
       this.isLoading = false;
     }
     ,
