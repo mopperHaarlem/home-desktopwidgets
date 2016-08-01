@@ -37,7 +37,7 @@ default {
       this.isvisible = !this.isvisible;
     },
     triggerclose: function() {
-      console.log('tc');
+      //console.log('tc');
       this.methodclose(this);
     },
     checkTime: function(i) {
@@ -56,9 +56,9 @@ default {
       m = self.checkTime(m);
       s = self.checkTime(s);
       var time = " "+h + ":" + m + ":" + s
-      console.info(time);
-      console.info(s);
-      console.info(self.currenttime);
+      //console.info(time);
+      //console.info(s);
+      //console.info(self.currenttime);
       self.currenttime=(time);
       //this.LookAtTheTime();
       //return time;

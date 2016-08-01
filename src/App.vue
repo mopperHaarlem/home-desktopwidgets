@@ -25,7 +25,8 @@
 </template>
 
 <script>
-
+import Localforage  from 'localforage'
+console.info(Localforage);
 import ComponentB from './components/ComponentB.vue'
 import wheatherapp from './components/wheatherapp.vue'
 import clockapp from './components/clockapp.vue'
@@ -56,19 +57,29 @@ export default {
   },
   methods: {
     reverseMessage: function () {    
+    var self = this;
       this.msg = this.msg.split('').reverse().join('');
+      Localforage.getItem('dektopelements').then(function(value) {
+        // The same code, but using ES6 Promises.
+        console.log(value);
+        self.elements=value;
+      });
       this.isLoading =!this.isLoading;
+
     },
     methodcloseapp : function (item) { 
       
       this.elements.$remove(item.appcfg);
       this.isLoading = false;
+      console.log(JSON.parse(JSON.stringify(this.elements)));
+      Localforage.setItem('dektopelements',  JSON.parse(JSON.stringify(this.elements)) );
     }
     ,
     methodOpenapp : function (apptype) {   
       this.isLoading = true; 
       console.log(apptype);
-      this.elements.push({"id": 4,"apptype":"clockapp","name": "Schermafbeelding 2016-02-02 om 10.37.43.png"})
+      this.elements.push({"id": 4,"apptype":"clockapp","name": "Schermafbeelding 2016-02-02 om 10.37.43.png"});
+      Localforage.setItem('dektopelements',  JSON.parse(JSON.stringify(this.elements)) );
       this.isLoading = false;
     }
     ,
