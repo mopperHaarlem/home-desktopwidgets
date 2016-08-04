@@ -46,7 +46,7 @@ export default {
       // preserves its current state and we are modifying
       // its initial state.
       msg: 'Hello dan!',
-      isLoading: true,
+      isLoading: false,
       isDialogVisible : false,
       elements: [
       {"id": 1,"apptype":"clockapp","name": "Schermafbeelding 2016-02-02 om 10.37.43.png"},
@@ -58,13 +58,14 @@ export default {
   methods: {
     reverseMessage: function () {    
     var self = this;
-      this.msg = this.msg.split('').reverse().join('');
+      this.isLoading =true;
+      //this.msg = this.msg.split('').reverse().join('');
       Localforage.getItem('dektopelements').then(function(value) {
         // The same code, but using ES6 Promises.
         console.log(value);
         self.elements=value;
       });
-      this.isLoading =!this.isLoading;
+      this.isLoading =false;
 
     },
     methodcloseapp : function (item) { 
